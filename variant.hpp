@@ -2,6 +2,8 @@
 
 #include <variant>
 
+namespace bestd {
+
 template <typename T, typename U, typename ... Args>
 constexpr int variant_index(int i)
 {
@@ -38,5 +40,7 @@ struct variant : std::variant <Args...> {
 		return variant_index <T, Args...> (0);
 	}
 };
+
+}
 
 #define variant_case(T, K) case T::type_index <K> ()
