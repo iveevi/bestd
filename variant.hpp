@@ -41,14 +41,26 @@ struct variant : std::variant <Args...> {
 	}
 };
 
+template <typename T, typename ... Args>
+constexpr bool contains = (std::same_as <T, Args> || ...);
+
 template <typename T>
-struct is_variant_base : std::false_type {};
+struct is_variant_base : std::false_type {
+	template <typename U>
+	static constexpr bool contains = false;
+};
 
 template <typename ... Args>
-struct is_variant_base <variant <Args...>> : std::true_type {};
+struct is_variant_base <variant <Args...>> : std::true_type {
+	template <typename T>
+	static constexpr bool contains = bestd::contains <T, Args...>;
+};
 
 template <typename T>
 concept is_variant = is_variant_base <T> ::value;
+
+template <typename T, typename U>
+concept is_variant_component = is_variant_base <T> ::template contains <U>;
 
 }
 
