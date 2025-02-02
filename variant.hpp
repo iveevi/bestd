@@ -41,6 +41,15 @@ struct variant : std::variant <Args...> {
 	}
 };
 
+template <typename T>
+struct is_variant_base : std::false_type {};
+
+template <typename ... Args>
+struct is_variant_base <variant <Args...>> : std::true_type {};
+
+template <typename T>
+concept is_variant = is_variant_base <T> ::value;
+
 }
 
 #define variant_case(T, K) case T::type_index <K> ()

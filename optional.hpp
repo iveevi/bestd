@@ -23,4 +23,15 @@ struct optional : std::optional <T> {
 	}
 };
 
+template <typename T>
+struct is_optional_base : std::false_type {};
+
+template <typename T>
+struct is_optional_base <optional <T>> : std::true_type {
+	using inner_t = T;
+};
+
+template <typename T>
+concept is_optional = is_optional_base <T> ::value;
+
 }

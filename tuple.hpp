@@ -20,4 +20,13 @@ struct tuple : std::tuple <Args...> {
 	}
 };
 
+template <typename T>
+struct is_tuple_base : std::false_type {};
+
+template <typename ... Args>
+struct is_tuple_base <tuple <Args...>> : std::true_type {};
+
+template <typename T>
+concept is_tuple = is_tuple_base <T> ::value;
+
 }
