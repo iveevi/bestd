@@ -29,4 +29,4 @@ struct is_tuple_base <tuple <Args...>> : std::true_type {};
 template <typename T>
 concept is_tuple = is_tuple_base <T> ::value;
 
-}
+} // namespace bestd

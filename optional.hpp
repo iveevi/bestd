@@ -34,4 +34,4 @@ struct is_optional_base <optional <T>> : std::true_type {
 template <typename T>
 concept is_optional = is_optional_base <T> ::value;
 
-}
+} // namespace bestd

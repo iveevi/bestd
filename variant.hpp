@@ -2,6 +2,8 @@
 
 #include <variant>
 
+#include "optional.hpp"
+
 namespace bestd {
 
 template <typename T, typename U, typename ... Args>
@@ -36,6 +38,14 @@ struct variant : std::variant <Args...> {
 	}
 
 	template <typename T>
+	inline std::optional <T> get() const {
+		if (std::holds_alternative <T> (*this))
+			return std::get <T> (*this);
+
+		return std::nullopt;
+	}
+
+	template <typename T>
 	static constexpr int type_index() {
 		return variant_index <T, Args...> (0);
 	}
@@ -62,6 +72,20 @@ concept is_variant = is_variant_base <T> ::value;
 template <typename T, typename U>
 concept is_variant_component = is_variant_base <T> ::template contains <U>;
 
-}
+// Optional extension on variants
+template <typename ... Args>
+struct optional <variant <Args...>> : std::optional <variant <Args...>> {
+	using std::optional <variant <Args...>> ::optional;
+
+	template <typename T>
+	inline optional <T> as() {
+		if (this->has_value())
+			return (this->value()).template as <T> ();
+
+		return std::nullopt;
+	}
+};
+
+} // namespace bestd
 
 #define variant_case(T, K) case T::type_index <K> ()
