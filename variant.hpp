@@ -20,6 +20,7 @@ constexpr int variant_index(int i)
 
 template <typename ... Args>
 struct variant : std::variant <Args...> {
+	using self = variant <Args...>;
 	using std::variant <Args...> ::variant;
 
 	template <typename T>
@@ -88,4 +89,8 @@ struct optional <variant <Args...>> : std::optional <variant <Args...>> {
 
 } // namespace bestd
 
-#define variant_case(T, K) case T::type_index <K> ()
+#define vswitch(value)					\
+	using T = std::decay_t <decltype(value)>;	\
+	switch (value.index())
+
+#define vcase(K) case T::type_index <K> ()
