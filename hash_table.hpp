@@ -9,7 +9,8 @@ namespace bestd {
 // Optional returns for hash tables
 template <typename K, typename V>
 struct hash_table : std::unordered_map <K, V> {
-	using std::unordered_map <K, V> ::unordered_map;
+	using standard = std::unordered_map <K, V>;
+	using standard::unordered_map;
 
 	optional <V> get(const K &k) {
 		if (this->count(k))

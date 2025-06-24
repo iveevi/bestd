@@ -9,7 +9,8 @@ namespace bestd {
 // Optional returns for trees
 template <typename K, typename V>
 struct tree : std::map <K, V> {
-	using std::map <K, V> ::map;
+	using standard = std::map <K, V>;
+	using standard::map;
 
 	optional <V> get(const K &k) {
 		if (this->count(k))

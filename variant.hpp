@@ -21,7 +21,8 @@ constexpr int variant_index(int i)
 template <typename ... Args>
 struct variant : std::variant <Args...> {
 	using self = variant <Args...>;
-	using std::variant <Args...> ::variant;
+	using standard = std::variant <Args...>;
+	using standard::variant;
 
 	template <typename T>
 	inline bool is() const {

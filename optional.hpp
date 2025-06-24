@@ -6,8 +6,8 @@ namespace bestd {
 
 template <typename T>
 struct optional : std::optional <T> {
-	using upper = std::optional <T>;
-	using upper::optional;
+	using standard = std::optional <T>;
+	using standard::optional;
 
 	template <typename F>
 	requires std::is_invocable_v <F, T>
@@ -15,8 +15,8 @@ struct optional : std::optional <T> {
 		using returns = decltype(f(T()));
 		using result = optional <returns>;
 
-		if (upper::has_value()) {
-			return result(f(upper::value()));
+		if (standard::has_value()) {
+			return result(f(standard::value()));
 		}
 
 		return result(std::nullopt);

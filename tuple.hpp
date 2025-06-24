@@ -7,7 +7,8 @@ namespace bestd {
 
 template <typename ... Args>
 struct tuple : std::tuple <Args...> {
-	using std::tuple <Args...> ::tuple;
+	using standard = std::tuple <Args...>;
+	using standard::tuple;
 
 	template <size_t I>
 	auto &get () {
